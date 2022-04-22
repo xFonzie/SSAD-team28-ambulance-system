@@ -1,2 +1,3 @@
-public class AmbulanceFactory {
+public abstract class AmbulanceFactory {
+    public abstract void createAmbulance();
 }
