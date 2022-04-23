@@ -7,25 +7,35 @@ public class Server {
    private GoggleMaps map;
    private Operator operator;
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
-         operator.notify(request.clientID, true);
-         target_hospital.bookingHistory.add(request);
+         operator.SendNotification(request.clientID, true);
+         target_hospital.addSuccessfulRequest(request);
    }
    public void manageRequest(Request request){
          Ambulance target_ambulance = findAmbulance(request, request.car);
-         for (Hospital cur : HospitalList.hospitals){
-            if (cur.name == request.hospitalName){
+         if (target_ambulance == null){
+             operator.SendNotification(request.clientID, false);
+         }
+         List<Hospital> tmp = hospitals.getHospitals();
+         for (Hospital cur : tmp){
+            if (cur.getName() == request.hospitalName){
                approve(request, target_ambulance, cur);
             }
          }
+       operator.SendNotification(request.clientID, false);
    }
    public void manageEmergencyRequest(EmergencyRequest emergencyRequest){
-      Ambulance target_ambulance = findAmbulance(request, Vehicle.any);
+      Ambulance target_ambulance = findAmbulance(emergencyRequest, Vehicle.any);
+       if (target_ambulance == null){
+           operator.SendNotification(emergencyRequest.clientID, false);
+       }
       String meem = map.getNearestHospitalName(emergencyRequest.position);
-       for (Hospital cur : HospitalList.hospitals) {
-           if (cur.name == meem) {
+       List<Hospital> tmp = hospitals.getHospitals();
+       for (Hospital cur : tmp) {
+           if (cur.getName() == meem) {
                approve(emergencyRequest, target_ambulance, cur);
            }
        }
+       operator.SendNotification(emergencyRequest.clientID, false);
    }
    private Ambulance findAmbulance(Request request, Vehicle tp){
          for (Ambulance ven : ambulances){
@@ -35,8 +45,6 @@ public class Server {
                }
             }
          }
-   }
-   public void finishRequest(Request request){
-
+         return null;
    }
 }
