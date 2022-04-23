@@ -6,8 +6,15 @@ public class Position {
         this.y = y;
     }
 
-    double getDistance(Position other) {
-        return Math.sqrt((this.x - other.x) * (this.x - other.x) +
-                         (this.y - other.y) * (this.y - other.y));
+    public double getDistanceTo(Position other) {
+        return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
