@@ -1,9 +1,13 @@
 public abstract class Ambulance {
     protected String name;
     protected Request currentRequest;
-    protected Position currentRequestPosition;
     protected Position position;
     protected Vehicle type;
+
+    public Ambulance(String name, Position position) {
+        this.name = name;
+        this.position = position;
+    }
 
     public boolean approve(Request request) {
         if (currentRequest != null ||
