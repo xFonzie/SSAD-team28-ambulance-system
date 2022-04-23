@@ -1,11 +1,17 @@
 public abstract class Ambulance {
-    private String name;
-    private Request currentRequest;
-    private Position currentRequestPosition;
-    private Position position;
-    private Vehicle type;
+    protected String name;
+    protected Request currentRequest;
+    protected Position currentRequestPosition;
+    protected Position position;
+    protected Vehicle type;
 
-    abstract public boolean approve(Request request);
+    public boolean approve(Request request) {
+        if (currentRequest != null ||
+                position.getDistance(request.position) > 100)
+            return false;
+        currentRequest = request;
+        return true;
+    }
 
     public Position getPositionOfCurrentRequest() {
         return currentRequest.position;
