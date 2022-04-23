@@ -32,7 +32,7 @@ public class Server {
          }
          List<Hospital> tmp = hospitals.getHospitals();
          for (Hospital cur : tmp){
-            if (cur.getName() == request.hospitalName){
+            if (cur.getName().equals(request.hospitalName)){
                approve(request, target_ambulance, cur);
             }
          }
@@ -46,7 +46,7 @@ public class Server {
       String meem = map.getNearestHospitalName(emergencyRequest.position);
        List<Hospital> tmp = hospitals.getHospitals();
        for (Hospital cur : tmp) {
-           if (cur.getName() == meem) {
+           if (cur.getName().equals(meem)) {
                approve(emergencyRequest, target_ambulance, cur);
            }
        }
