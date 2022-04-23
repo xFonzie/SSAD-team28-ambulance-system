@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class User {
         System.out.println("y = "); double y = Scanner.nextDouble();
         return new Position(x, y);
     }
-    public String getHospital(){
+    private String getHospital(){
         Scanner Scanner = new Scanner(System.in);
         List<String> Hospitals = Gogglemap.getAllHospitalInfo();
         System.out.println("Select the hospital: ");
@@ -35,7 +34,7 @@ public class User {
         }
 
     }
-    public Vehicle getCar(){
+    private Vehicle getCar(){
         Scanner Scanner = new Scanner(System.in);
         System.out.println("Enter the car: ");
         System.out.println("BIG - 1");
@@ -48,19 +47,19 @@ public class User {
             else System.out.println("Wrong number, try again");
         }
     }
-    public boolean makeRequest(){
+    public void makeRequest(){
 
         Position position = getCoordinates();
         Vehicle car = getCar();
         String hospitalName = getHospital();
 
         Request request = new Request(position, car, hospitalName, id);
-        return request.sendRequest(server);
+        request.sendRequest(server);
     }
-    public boolean makeEmergencyRequest(){
+    public void makeEmergencyRequest(){
         Position position = getCoordinates();
         Request EmergencyRequest = new EmergencyRequest(position, id, Gogglemap);
-        return EmergencyRequest.sendRequest(server);
+        EmergencyRequest.sendRequest(server);
     }
     public void notify(boolean value){
         if (value) System.out.println("Request Approved");

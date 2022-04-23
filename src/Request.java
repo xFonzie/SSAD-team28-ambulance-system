@@ -12,7 +12,7 @@ public class Request {
         this.hospitalName = hospitalName;
         this.clientID = clientID;
     }
-    boolean sendRequest(Server server){
-        return server.manageRequest(this);
+    void sendRequest(Server server){
+        server.manageRequest(this);
     }
 }
