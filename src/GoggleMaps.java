@@ -11,7 +11,7 @@ public class GoggleMaps {
     public List<String> getAllHospitalInfo() {
         List<String> info = new LinkedList<>();
         for (Hospital h : hospitals.getHospitals()) {
-            info.add(h.getName() + ": " + h.getPosition());
+            info.add(h.getName());
         }
         return info;
     }
