@@ -22,6 +22,7 @@ public class Server {
     }
 
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
+         ven.updateType(request);
          operator.SendNotification(request.clientID, true);
          target_hospital.addSuccessfulRequest(request);
    }
