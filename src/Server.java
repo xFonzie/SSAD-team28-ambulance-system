@@ -2,10 +2,25 @@ import java.util.*;
 import java.math.*;
 public class Server {
    public HospitalList hospitals;
-   public Ambulance[] ambulances;
+   public  List<Ambulance> ambulances = new LinkedList<Ambulance>();
    public HashMap<Integer, User> users;
-   private GoggleMaps map;
-   private Operator operator;
+   public GoggleMaps map;
+   public Operator operator;
+
+    Server(HospitalList a, GoggleMaps b){
+        hospitals = a;
+        ambulances = new LinkedList<Ambulance>();
+        users = new HashMap<Integer, User>();
+        map = b;
+        operator = new Operator();
+    }
+    public void add_ambulance(Ambulance kek){
+        ambulances.add(kek);
+    }
+    public void add_user(int id, User user){
+        users.put(id, user);
+    }
+
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
          operator.SendNotification(request.clientID, true);
          target_hospital.addSuccessfulRequest(request);
