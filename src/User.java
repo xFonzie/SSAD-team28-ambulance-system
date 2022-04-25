@@ -47,6 +47,9 @@ public class User {
             else System.out.println("Wrong number, try again");
         }
     }
+    public int getId() {
+        return id;
+    }
     public void makeRequest(){
         Scanner Scanner = new Scanner(System.in);
         System.out.println("Is it Emergency request?");
