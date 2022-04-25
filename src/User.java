@@ -49,7 +49,7 @@ public class User {
     }
     public void makeRequest(){
         Scanner Scanner = new Scanner(System.in);
-        System.out.println("Is it Emergency request");
+        System.out.println("Is it Emergency request?");
         System.out.println("1 - YES");
         System.out.println("0 - NO");
         int Emergency;
