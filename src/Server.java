@@ -2,7 +2,7 @@ import java.util.*;
 import java.math.*;
 public class Server {
    public HospitalList hospitals;
-   public  List<Ambulance> ambulances = new LinkedList<Ambulance>();
+   public  List<Ambulance> ambulances;
    public HashMap<Integer, User> users;
    public GoggleMaps map;
    public Operator operator;
@@ -55,7 +55,10 @@ public class Server {
             if (ven.type == tp || tp == Vehicle.any) {
                if (ven.approve(request)) {
                   double val = ven.position.getDistanceTo(request.position);
-                  if (val < cur_dist){ ret = ven;}
+                  if (val < cur_dist){
+                      ret = ven;
+                      cur_dist = val;
+                  }
                }
             }
          }

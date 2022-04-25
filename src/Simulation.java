@@ -14,7 +14,8 @@ public class Simulation {
         server.add_ambulance(new Ambulance("Ambulance 2",new Position(1, 1),Vehicle.BIG));
         server.add_ambulance(new Ambulance("Ambulance 3",new Position(10, 10),Vehicle.SMALL));
 
-        user.makeRequest();
+        while (true)
+            user.makeRequest();
 
     }
 }
