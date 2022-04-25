@@ -22,7 +22,7 @@ public class Server {
     }
 
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
-         ven.updateRequest(request);
+         ven.updateType(request);
          operator.SendNotification(request.clientID, true);
          target_hospital.addSuccessfulRequest(request);
    }
@@ -30,24 +30,34 @@ public class Server {
          Ambulance target_ambulance = findAmbulance(request, request.car);
          if (target_ambulance == null){
              operator.SendNotification(request.clientID, false);
+             return;
          }
-       var targetHospital = hospitals.getByName(request.hospitalName);
-       approve(request, target_ambulance, targetHospital);
+         List<Hospital> tmp = hospitals.getHospitals();
+         for (Hospital cur : tmp){
+            if (cur.getName().equals(request.hospitalName)){
+               approve(request, target_ambulance, cur);
+            }
+         }
        operator.SendNotification(request.clientID, false);
    }
    public void manageEmergencyRequest(EmergencyRequest emergencyRequest){
       Ambulance target_ambulance = findAmbulance(emergencyRequest, Vehicle.any);
        if (target_ambulance == null){
            operator.SendNotification(emergencyRequest.clientID, false);
+           return;
        }
       String meem = map.getNearestHospitalName(emergencyRequest.position);
-       var targetHospital = hospitals.getByName(meem);
-       approve(emergencyRequest, target_ambulance, targetHospital);
+       List<Hospital> tmp = hospitals.getHospitals();
+       for (Hospital cur : tmp) {
+           if (cur.getName().equals(meem)) {
+               approve(emergencyRequest, target_ambulance, cur);
+           }
+       }
        operator.SendNotification(emergencyRequest.clientID, false);
    }
    private Ambulance findAmbulance(Request request, Vehicle tp){
         Ambulance ret = null;
-        double cur_dist = Double.MAX_VALUE;
+        double cur_dist = 1e9;
          for (Ambulance ven : ambulances){
             if (ven.type == tp || tp == Vehicle.any) {
                if (ven.approve(request)) {
