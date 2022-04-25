@@ -22,7 +22,7 @@ public class Server {
     }
 
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
-         ven.updateType(request);
+         ven.updateRequest(request);
          operator.SendNotification(request.clientID, true);
          target_hospital.addSuccessfulRequest(request);
    }
@@ -32,13 +32,9 @@ public class Server {
              operator.SendNotification(request.clientID, false);
              return;
          }
-         List<Hospital> tmp = hospitals.getHospitals();
-         for (Hospital cur : tmp){
-            if (cur.getName().equals(request.hospitalName)){
-               approve(request, target_ambulance, cur);
-            }
-         }
-       operator.SendNotification(request.clientID, false);
+         var hospital = hospitals.getByName(request.hospitalName);
+         approve(request, target_ambulance, hospital);
+            System.out.println("The ambulance " + target_ambulance.name + " is going to "+request.position + " and then to " + request.hospitalName);
    }
    public void manageEmergencyRequest(EmergencyRequest emergencyRequest){
       Ambulance target_ambulance = findAmbulance(emergencyRequest, Vehicle.any);
@@ -47,17 +43,14 @@ public class Server {
            return;
        }
       String meem = map.getNearestHospitalName(emergencyRequest.position);
-       List<Hospital> tmp = hospitals.getHospitals();
-       for (Hospital cur : tmp) {
-           if (cur.getName().equals(meem)) {
-               approve(emergencyRequest, target_ambulance, cur);
-           }
-       }
-       operator.SendNotification(emergencyRequest.clientID, false);
+       var hospital = hospitals.getByName(meem);
+       approve(emergencyRequest, target_ambulance, hospital);
+       System.out.println("EMERGENCY: The ambulance " + target_ambulance.name + " is going to " +emergencyRequest.position + " and then to " + emergencyRequest.hospitalName);
+
    }
    private Ambulance findAmbulance(Request request, Vehicle tp){
         Ambulance ret = null;
-        double cur_dist = 1e9;
+        double cur_dist = Double.MAX_VALUE;
          for (Ambulance ven : ambulances){
             if (ven.type == tp || tp == Vehicle.any) {
                if (ven.approve(request)) {

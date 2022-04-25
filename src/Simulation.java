@@ -11,11 +11,10 @@ public class Simulation {
         server.add_user(0,user);
 
         server.add_ambulance(new Ambulance("Ambulance 1",new Position(0, 0),Vehicle.SMALL));
-        server.add_ambulance(new Ambulance("Ambulance 1",new Position(10, 10),Vehicle.SMALL));
         server.add_ambulance(new Ambulance("Ambulance 2",new Position(1, 1),Vehicle.BIG));
+        server.add_ambulance(new Ambulance("Ambulance 3",new Position(10, 10),Vehicle.SMALL));
 
         user.makeRequest();
-        user.makeEmergencyRequest();
 
     }
 }

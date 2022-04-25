@@ -1,20 +1,21 @@
-public abstract class Ambulance {
+public class Ambulance {
     protected String name;
     protected Request currentRequest;
     protected Position position;
     protected Vehicle type;
 
-    public Ambulance(String name, Position position) {
+    public Ambulance(String name, Position position, Vehicle type) {
         this.name = name;
         this.position = position;
+        this.type = type;
     }
 
     public boolean approve(Request request) {
-        if (currentRequest != null ||
-                position.getDistance(request.position) > 100)
-            return false;
+        return currentRequest == null &&
+                !(position.getDistanceTo(request.position) > 100);
+    }
+    public void updateRequest(Request request) {
         currentRequest = request;
-        return true;
     }
 
     public Position getPositionOfCurrentRequest() {
