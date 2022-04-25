@@ -48,13 +48,27 @@ public class User {
         }
     }
     public void makeRequest(){
+        Scanner Scanner = new Scanner(System.in);
+        System.out.println("Is it Emergency request?");
+        System.out.println("1 - YES");
+        System.out.println("0 - NO");
+        int Emergency;
 
-        Position position = getCoordinates();
-        Vehicle car = getCar();
-        String hospitalName = getHospital();
+        while (true){
+            Emergency = Scanner.nextInt();
+            if (Emergency == 1 || Emergency == 0) break;
+            else System.out.println("Wrong number, try again");
+        }
 
-        Request request = new Request(position, car, hospitalName, id);
-        request.sendRequest(server);
+        if (Emergency == 1) makeEmergencyRequest();
+        else {
+            Position position = getCoordinates();
+            Vehicle car = getCar();
+            String hospitalName = getHospital();
+
+            Request request = new Request(position, car, hospitalName, id);
+            request.sendRequest(server);
+        }
     }
     public void makeEmergencyRequest(){
         Position position = getCoordinates();
