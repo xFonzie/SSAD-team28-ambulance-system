@@ -4,10 +4,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Simulation {
-    private static HospitalList hospitalList = new HospitalList();
-    private static ArrayList<User> users = new ArrayList<>();
-    private static GoggleMaps maps = new GoggleMaps(hospitalList);
-    private static Server server = new Server(hospitalList, maps);
+    private static final HospitalList hospitalList = new HospitalList();
+    private static final ArrayList<User> users = new ArrayList<>();
+    private static final GoggleMaps maps = new GoggleMaps(hospitalList);
+    private static final Server server = new Server(hospitalList, maps);
 
     public static void main(String[] args) {
         start();
@@ -81,13 +81,17 @@ public class Simulation {
         y = sc.nextDouble();
         System.out.println("Available ambulance types:");
         for (Vehicle i : Vehicle.values()) {
-            System.out.println(i.name());
+            if (i != Vehicle.any)
+                System.out.println(i.name());
         }
+        sc = new Scanner(System.in);
         Vehicle type;
         while (true) {
             try {
                 String typeStr = sc.nextLine();
                 type = Vehicle.valueOf(typeStr);
+                if (type == Vehicle.any)
+                    continue;
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("""
