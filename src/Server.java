@@ -30,11 +30,13 @@ public class Server {
          Ambulance target_ambulance = findAmbulance(request, request.car);
          if (target_ambulance == null){
              operator.SendNotification(request.clientID, false);
+             return;
          }
          List<Hospital> tmp = hospitals.getHospitals();
          for (Hospital cur : tmp){
             if (cur.getName().equals(request.hospitalName)){
                approve(request, target_ambulance, cur);
+               return;
             }
          }
        operator.SendNotification(request.clientID, false);
@@ -43,12 +45,14 @@ public class Server {
       Ambulance target_ambulance = findAmbulance(emergencyRequest, Vehicle.any);
        if (target_ambulance == null){
            operator.SendNotification(emergencyRequest.clientID, false);
+           return;
        }
       String meem = map.getNearestHospitalName(emergencyRequest.position);
        List<Hospital> tmp = hospitals.getHospitals();
        for (Hospital cur : tmp) {
            if (cur.getName().equals(meem)) {
                approve(emergencyRequest, target_ambulance, cur);
+               return;
            }
        }
        operator.SendNotification(emergencyRequest.clientID, false);
