@@ -22,7 +22,7 @@ public class Server {
     }
 
    public void approve(Request request, Ambulance ven, Hospital target_hospital){
-         ven.updateType(request);
+         ven.updateRequest(request);
          operator.SendNotification(request.clientID, true);
          target_hospital.addSuccessfulRequest(request);
    }
@@ -31,12 +31,8 @@ public class Server {
          if (target_ambulance == null){
              operator.SendNotification(request.clientID, false);
          }
-         List<Hospital> tmp = hospitals.getHospitals();
-         for (Hospital cur : tmp){
-            if (cur.getName().equals(request.hospitalName)){
-               approve(request, target_ambulance, cur);
-            }
-         }
+       var targetHospital = hospitals.getByName(request.hospitalName);
+       approve(request, target_ambulance, targetHospital);
        operator.SendNotification(request.clientID, false);
    }
    public void manageEmergencyRequest(EmergencyRequest emergencyRequest){
@@ -45,17 +41,13 @@ public class Server {
            operator.SendNotification(emergencyRequest.clientID, false);
        }
       String meem = map.getNearestHospitalName(emergencyRequest.position);
-       List<Hospital> tmp = hospitals.getHospitals();
-       for (Hospital cur : tmp) {
-           if (cur.getName().equals(meem)) {
-               approve(emergencyRequest, target_ambulance, cur);
-           }
-       }
+       var targetHospital = hospitals.getByName(meem);
+       approve(emergencyRequest, target_ambulance, targetHospital);
        operator.SendNotification(emergencyRequest.clientID, false);
    }
    private Ambulance findAmbulance(Request request, Vehicle tp){
         Ambulance ret = null;
-        double cur_dist = 1e9;
+        double cur_dist = Double.MAX_VALUE;
          for (Ambulance ven : ambulances){
             if (ven.type == tp || tp == Vehicle.any) {
                if (ven.approve(request)) {
