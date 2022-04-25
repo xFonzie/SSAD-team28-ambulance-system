@@ -52,6 +52,7 @@ public class Simulation {
                             Unsupported operation. Try again.
                                                         
                             """);
+                scanner.nextLine();
             }
         }
     }
