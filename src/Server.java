@@ -53,13 +53,16 @@ public class Server {
        operator.SendNotification(emergencyRequest.clientID, false);
    }
    private Ambulance findAmbulance(Request request, Vehicle tp){
+        Ambulance ret = null;
+        double cur_dist = 1e9;
          for (Ambulance ven : ambulances){
             if (ven.type == tp || tp == Vehicle.any) {
                if (ven.approve(request)) {
-                  return ven;
+                  double val = ven.position.getDistanceTo(request.position);
+                  if (val < cur_dist){ ret = ven;}
                }
             }
          }
-         return null;
+         return ret;
    }
 }
