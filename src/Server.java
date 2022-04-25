@@ -12,7 +12,7 @@ public class Server {
         ambulances = new LinkedList<Ambulance>();
         users = new HashMap<Integer, User>();
         map = b;
-        operator = new Operator();
+        operator = new Operator(this);
     }
     public void add_ambulance(Ambulance kek){
         ambulances.add(kek);

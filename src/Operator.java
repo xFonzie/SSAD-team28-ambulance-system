@@ -1,5 +1,8 @@
 public class Operator {
-    Server server;
+    public Server server;
+    Operator(Server sr){
+        this.server = sr;
+    }
     public void SendNotification(int id, boolean value){
         server.users.get(id).notify(value);
     }
