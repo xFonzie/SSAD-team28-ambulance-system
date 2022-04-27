@@ -70,21 +70,25 @@ public class Simulation {
     }
 
     private static void addAmbulance() {
+        Scanner sc = new Scanner(System.in);
+
         System.out.print("""
                 Please, specify ambulance name:
                 """);
-        Scanner sc = new Scanner(System.in);
         String name = sc.nextLine();
-        System.out.print("Please, specify the coordinates of the hospital:\nx= ");
+
+        System.out.print("Please, specify the coordinates:\nx= ");
         double x, y;
         x = sc.nextDouble();
         System.out.print("y= ");
         y = sc.nextDouble();
+
         System.out.println("Available ambulance types:");
         for (Vehicle i : Vehicle.values()) {
             if (i != Vehicle.any)
                 System.out.println(i.name());
         }
+        System.out.print("Please, specify the ambulance type: ");
         sc = new Scanner(System.in);
         Vehicle type;
         while (true) {
@@ -103,6 +107,10 @@ public class Simulation {
 
         Ambulance newAmbulance = new Ambulance(name, new Position(x, y), type);
         server.add_ambulance(newAmbulance);
+
+        System.out.printf("""
+                The registration was successful.
+                Added new ambulance at %s with name %s.%n%n""", newAmbulance.getPosition().toString(), newAmbulance.getName());
     }
 
     private static void addHospital() {
@@ -150,7 +158,7 @@ public class Simulation {
             }
         }
         System.out.println("""
-                Error: There is no such id in the system.
+                Error: User not found.
                 """);
     }
 }

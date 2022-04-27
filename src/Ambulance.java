@@ -23,6 +23,7 @@ public class Ambulance {
     }
 
     public void finishCurrentRequest() {
+        position = currentRequest.position;
         currentRequest = null;
     }
 
@@ -32,5 +33,9 @@ public class Ambulance {
 
     public Vehicle getType() {
         return type;
+    }
+
+    public String getName() {
+        return name;
     }
 }
