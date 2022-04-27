@@ -6,9 +6,12 @@ ________
 ## The description of the task
 Our [task](https://docs.google.com/document/d/1MlSFBiwkHJ6vB-HYCIXd3NcC_fdYKRGp7DmvvDefBTw/edit) was to create an Ambulance booking app, using one of OOP design patterns. The programming language for this task is pure Java
 ________
+## The results
+We've developed an [UML diagram](https://i.imgur.com/E9DmlB3.png) and, according to it, created the classes in this project.
+________
 ## The simulation
 ### How to execute
-To execute the program, you should use next three commands:
+To execute the program, you should use next three commands in terminal:
 ```
 cd *absolute path to project folder*/src
 javac *.java
